@@ -1,40 +1,43 @@
-# Good Vibes Only
+# 🙈 Good Vibes Only
 
-A Manifest V3 browser extension that masks negative news cards/headlines on selected news sites.
+A free, open-source browser extension that filters negative news headlines from your feed. Runs entirely in your browser with no API keys or cloud calls.
 
-## MVP status
+**[goodvibesonly.shetty.me](https://goodvibesonly.shetty.me)**
 
-Implemented now:
+## Features
 
-- Headlines/cards only
-- Local rule-based sentiment/severity scoring
-- Hybrid score using negative keywords + allow keywords
+- Local keyword + rule-based sentiment scoring
+- Negative keywords, severity weighting, allow keywords, and pattern rules
 - Site-specific selectors with generic fallback
-- Mask / blur / hide modes
-- MutationObserver for lazy-loaded cards
-- Popup controls
-- Debug mode that shows score, threshold, matched keywords, allow keywords, and rule hits on each card
-- Options page for domains and custom keywords
+- Three modes: mask, blur, or hide
+- Adjustable strictness (low, medium, high)
+- MutationObserver for dynamically loaded content
+- Popup for quick controls
+- Debug mode showing scores, thresholds, and matched keywords
+- Options page for domain configuration
 - No remote API calls
 
-Next:
+## Installation
 
-- Add a browser-compatible local sentiment model via Transformers.js/ONNX
-- Tune selectors per site
-- Add tests with real headline fixtures
-- Improve card detection and false-positive handling
+### Chrome / Brave / Edge
 
-## Load locally
+1. Download or clone this repository
+2. Open `chrome://extensions` in your browser
+3. Enable **Developer mode** (toggle in the top-right corner)
+4. Click **Load unpacked**
+5. Select the root folder of this project (the one containing `manifest.json`)
+6. The extension icon should appear in your toolbar
+7. Visit a supported news site to see it in action
 
-Chrome/Brave/Edge:
+### Firefox
 
-1. Open `chrome://extensions`
-2. Enable Developer mode
-3. Click **Load unpacked**
-4. Select this folder
-5. Visit a configured news site
-
-Firefox support will need Manifest V3 compatibility testing.
+1. Download or clone this repository
+2. Open `about:debugging` in Firefox
+3. Click **This Firefox** in the left sidebar
+4. Click **Load Temporary Add-on**
+5. Navigate to the root folder of this project and select the `manifest.json` file
+6. The extension will be loaded temporarily (it will be removed when Firefox is closed)
+7. Visit a supported news site to see it in action
 
 ## Architecture
 
@@ -42,9 +45,40 @@ Firefox support will need Manifest V3 compatibility testing.
 - `src/defaults.js` - settings and site selector config
 - `src/analyzer.js` - local negative-news scoring
 - `src/content.js` - DOM scanning, masking, mutation observer
+- `src/theme.js` - shared theme variables
 - `src/popup.html/js` - quick controls
 - `src/options.html/js` - site and keyword configuration
 
-## Model plan
+## How the scoring works
 
-The current analyzer is deliberately simple and free. To add `tabularisai/multilingual-sentiment-analysis`, first verify browser compatibility with Transformers.js/ONNX. If it is too large or unsupported, use a smaller browser-compatible multilingual sentiment model and combine its score with the existing keyword severity score.
+Headlines are scored 0-100% using a weighted system:
+
+| Signal                              | Weight         | Cap |
+| ----------------------------------- | -------------- | --- |
+| Negative keyword match              | +28% per match | 85% |
+| High severity keyword               | +22% per match | 30% |
+| Allow keyword                       | -18% per match | 35% |
+| Casualty pattern (e.g. "12 killed") | +35%           | -   |
+| Vulnerable person pattern           | +40%           | -   |
+
+The final score is compared against your chosen strictness threshold:
+
+| Strictness       | Threshold |
+| ---------------- | --------- |
+| Low              | 72%       |
+| Medium (default) | 48%       |
+| High             | 25%       |
+
+## Roadmap
+
+- Add a browser-compatible local sentiment model via Transformers.js/ONNX
+- Tune selectors per site
+- Custom block and allow keywords from options page
+
+## Landing page
+
+The `site/` directory contains the landing page, hosted at [goodvibesonly.shetty.me](https://goodvibesonly.shetty.me).
+
+## License
+
+Open source. Built by [Deveesh Shetty](https://shetty.me).
