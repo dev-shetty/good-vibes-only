@@ -26,6 +26,6 @@ const GVO_SITE_SELECTORS = {
   "hindustantimes.com": { card: "article, .cartHolder, .storyShortDetail", title: "h2, h3, a", summary: "p" },
   "ndtv.com": { card: "article, .news_Itm, .story_list", title: "h2, h3, a", summary: "p" },
   "timesofindia.indiatimes.com": { card: "article, .uwU81, .news_card, li", title: "h2, h3, a", summary: "p" },
-  "deccanherald.com": { card: "article, main a:has(img), a:has(img), .card, [class*='card'], [class*='Card'], [class*='story'], [class*='Story'], [class*='article'], [class*='Article'], [class*='news'], [class*='News']", title: "h1, h2, h3, h4, a", summary: "p, [class*='summary'], [class*='description'], [class*='excerpt']" },
+  "deccanherald.com": { card: "main article, main li:has(img), main div:has(> a[href] img):has(h1, h2, h3, h4), main div:has(> img):has(h1, h2, h3, h4)", title: "h1, h2, h3, h4, a", summary: "p, [class*='summary'], [class*='description'], [class*='excerpt']" },
   generic: { card: "article, [class*='card'], [class*='story'], [class*='article'], li", title: "h1, h2, h3, a", summary: "p" }
 };
