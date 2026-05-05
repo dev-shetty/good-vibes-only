@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Good Vibes Only",
+  "description": "Masks negative news headlines on selected sites using local rules and sentiment scoring.",
+  "version": "0.1.0",
+  "permissions": ["storage", "activeTab", "tabs"],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_title": "Good Vibes Only",
+    "default_popup": "src/popup.html"
+  },
+  "options_page": "src/options.html",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "good-vibes-only@example.com"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/defaults.js", "src/analyzer.js", "src/content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

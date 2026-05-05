@@ -1,0 +1,10 @@
+node_modules
+npm-debug.log*
+dist
+build
+icons
+.pi
+.git
+
+# Intentional hand-formatted config tables.
+src/defaults.js

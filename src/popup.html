@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Good Vibes Only</title>
+    <style>
+      body {
+        width: 280px;
+        margin: 0;
+        padding: 14px;
+        font:
+          14px system-ui,
+          -apple-system,
+          Segoe UI,
+          sans-serif;
+        color: #14532d;
+        background: #f0fdf4;
+      }
+      h1 {
+        font-size: 18px;
+        margin: 0 0 10px;
+      }
+      label {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin: 10px 0;
+      }
+      select,
+      button {
+        width: 100%;
+        padding: 8px;
+        border-radius: 8px;
+        border: 1px solid #86efac;
+        background: white;
+      }
+      .muted {
+        color: #3f6212;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🌿 Good Vibes Only</h1>
+    <div id="status" class="muted">Loading...</div>
+    <label><input id="enabled" type="checkbox" /> Enabled</label>
+    <label><input id="debugMode" type="checkbox" /> Debug mode</label>
+    <label>
+      Strictness
+      <select id="strictness">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+    </label>
+    <label>
+      Mode
+      <select id="mode">
+        <option value="mask">Mask</option>
+        <option value="blur">Blur</option>
+        <option value="hide">Hide</option>
+      </select>
+    </label>
+    <button id="save">Save & rescan</button>
+    <p class="muted">Runs locally. MVP uses keyword + rule scoring.</p>
+    <script src="defaults.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>
