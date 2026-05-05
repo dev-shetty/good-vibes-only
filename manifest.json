@@ -5,9 +5,21 @@
   "version": "0.1.0",
   "permissions": ["storage", "activeTab", "tabs"],
   "host_permissions": ["<all_urls>"],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
   "action": {
     "default_title": "Good Vibes Only",
-    "default_popup": "src/popup.html"
+    "default_popup": "src/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
   },
   "options_page": "src/options.html",
   "browser_specific_settings": {
@@ -18,7 +30,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["src/defaults.js", "src/analyzer.js", "src/content.js"],
+      "js": ["src/theme.js", "src/defaults.js", "src/analyzer.js", "src/content.js"],
       "run_at": "document_idle"
     }
   ]

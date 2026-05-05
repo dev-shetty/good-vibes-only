@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>Good Vibes Only Options</title>
+    <script src="theme.js"></script>
     <style>
       body {
         max-width: 760px;
@@ -13,20 +14,35 @@
           -apple-system,
           Segoe UI,
           sans-serif;
-        color: #14532d;
+        color: var(--gvo-text);
+        background: var(--gvo-surface);
+      }
+      h1 {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      h1 img {
+        width: 44px;
+        height: 44px;
+        border-radius: 8px;
       }
       textarea {
         width: 100%;
         min-height: 110px;
         padding: 10px;
         border-radius: 8px;
-        border: 1px solid #86efac;
+        border: 1px solid var(--gvo-border);
+        background: var(--gvo-surface);
+        color: var(--gvo-text);
       }
       button {
         padding: 10px 14px;
         border-radius: 8px;
-        border: 1px solid #16a34a;
-        background: #dcfce7;
+        border: 1px solid var(--gvo-accent);
+        background: var(--gvo-accent);
+        color: var(--gvo-accent-text);
+        font-weight: 600;
         cursor: pointer;
       }
       .check {
@@ -38,13 +54,13 @@
         margin: 18px 0;
       }
       .muted {
-        color: #4d7c0f;
+        color: var(--gvo-muted);
         font-size: 13px;
       }
     </style>
   </head>
   <body>
-    <h1>🌿 Good Vibes Only Options</h1>
+    <h1><img src="../icons/icon48.png" alt="" /> Good Vibes Only Options</h1>
     <div class="row check">
       <input id="debugMode" type="checkbox" />
       <label for="debugMode">Debug mode: show score and matched keywords on each card</label>

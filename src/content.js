@@ -98,18 +98,29 @@
       "z-index:2147483647",
       "margin:4px 0",
       "padding:5px 7px",
-      "border:1px solid #16a34a",
+      `border:1px solid ${GVO_THEME.border}`,
       "border-radius:8px",
-      "background:#dcfce7",
-      "color:#14532d",
+      `background:${GVO_THEME.background}`,
+      `color:${GVO_THEME.text}`,
       "font:12px/1.35 system-ui,-apple-system,Segoe UI,sans-serif",
       "box-shadow:0 1px 4px rgba(0,0,0,.12)"
     ].join(";");
     card.prepend(badge);
   }
 
+  function applyMaskTheme(card) {
+    card.style.border = `1px dashed ${GVO_THEME.border}`;
+    card.style.borderRadius = "12px";
+    card.style.padding = "14px";
+    card.style.background = GVO_THEME.background;
+    card.style.color = GVO_THEME.text;
+  }
+
   function maskCard(card, result) {
-    if (card.dataset.gvoRemoved === "true") return;
+    if (card.dataset.gvoRemoved === "true") {
+      applyMaskTheme(card);
+      return;
+    }
     card.dataset.gvoRemoved = "true";
     removedCount += 1;
 
@@ -130,11 +141,7 @@
     card.innerHTML = "";
     card.style.display = originalDisplay || "block";
     card.style.minHeight = "72px";
-    card.style.border = "1px dashed #86efac";
-    card.style.borderRadius = "12px";
-    card.style.padding = "14px";
-    card.style.background = "#f0fdf4";
-    card.style.color = "#166534";
+    applyMaskTheme(card);
 
     const box = document.createElement("div");
     box.style.font = "14px/1.4 system-ui, -apple-system, Segoe UI, sans-serif";
@@ -147,7 +154,7 @@
     button.style.padding = "0";
     button.style.border = "0";
     button.style.background = "transparent";
-    button.style.color = "#166534";
+    button.style.color = GVO_THEME.muted;
     button.style.textDecoration = "underline";
     button.style.textUnderlineOffset = "3px";
     button.style.font = "600 13px/1.4 system-ui, -apple-system, Segoe UI, sans-serif";
@@ -214,6 +221,7 @@
         .then(() => {
           processed = new WeakSet();
           document.querySelectorAll(".gvo-debug-badge").forEach(badge => badge.remove());
+          document.querySelectorAll("[data-gvo-removed='true']").forEach(applyMaskTheme);
           return processCards();
         })
         .then(() => sendResponse({ ok: true }));
